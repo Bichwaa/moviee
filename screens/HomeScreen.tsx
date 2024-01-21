@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {Bars3CenterLeftIcon, MagnifyingGlassIcon} from 'react-native-heroicons/outline'
 import TrendingMovies from '../components/trendingMovies';
-// import MovieList from '../components/movieList';
+import MovieList from '../components/movieList';
 import { StatusBar } from 'expo-status-bar';
-// import { fetchTopRatedMovies, fetchTrendingMovies, fetchUpcomingMovies } from '../api/moviedb';
+import { fetchTopRatedMovies, fetchTrendingMovies, fetchUpcomingMovies } from '../api/moviedb';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../components/loading';
 import { styles } from '../theme';
@@ -21,63 +21,71 @@ export default function HomeScreen() {
   const navigation = useNavigation();
 
 
-//   useEffect(()=>{
-//     getTrendingMovies();
-//     getUpcomingMovies();
-//     getTopRatedMovies();
-//   },[]);
+  useEffect(()=>{
+    getTrendingMovies();
+    getUpcomingMovies();
+    getTopRatedMovies();
+  },[]);
 
-//   const getTrendingMovies = async ()=>{
-//     const data = await fetchTrendingMovies();
-//     console.log('got trending', data.results.length)
-//     if(data && data.results) setTrending(data.results);
-//     setLoading(false)
-//   }
-//   const getUpcomingMovies = async ()=>{
-//     const data = await fetchUpcomingMovies();
-//     console.log('got upcoming', data.results.length)
-//     if(data && data.results) setUpcoming(data.results);
-//   }
-//   const getTopRatedMovies = async ()=>{
-//     const data = await fetchTopRatedMovies();
-//     console.log('got top rated', data.results.length)
-//     if(data && data.results) setTopRated(data.results);
-//   }
+  const getTrendingMovies = async ()=>{
+    const data = await fetchTrendingMovies();
+    console.log('got trending', data.results.length)
+    if(data && data.results) setTrending(data.results);
+    setLoading(false)
+  }
+  const getUpcomingMovies = async ()=>{
+    const data = await fetchUpcomingMovies();
+    console.log('got upcoming', data.results.length)
+    if(data && data.results) setUpcoming(data.results);
+  }
+  const getTopRatedMovies = async ()=>{
+    const data = await fetchTopRatedMovies();
+    console.log('got top rated', data.results.length)
+    if(data && data.results) setTopRated(data.results);
+  }
 
 
 
   return (
     <View className="flex-1 bg-neutral-800">
-      {/* search bar */}
-      <SafeAreaView className={ios? "-mb-2": "mb-3"}>
+        {/* search bar */}
+        <SafeAreaView className={ios? "-mb-2": "mb-3"}>
         <StatusBar style="light" />
         <View className="flex-row justify-between items-center mx-4">
-          <Bars3CenterLeftIcon size="30" strokeWidth={2} color="white" />
-          <Text 
+            <Bars3CenterLeftIcon size="30" strokeWidth={2} color="white" />
+            <Text 
             className="text-white text-3xl font-bold">
-              <Text  className='text-[#eab308]'>M</Text>ovies
-          </Text>
-          <TouchableOpacity >
+                <Text  className='text-[#eab308]'>M</Text>ovies
+            </Text>
+            <TouchableOpacity >
             <MagnifyingGlassIcon size="30" strokeWidth={2} color="white" />
-          </TouchableOpacity>
+            </TouchableOpacity>
         </View>
-      </SafeAreaView>
-      {
+        
+        </SafeAreaView>
+        
+        {
         loading? (
           <Loading />
         ):(
           <ScrollView 
             showsVerticalScrollIndicator={false} 
             contentContainerStyle={{paddingBottom: 10}}
-          >
+          > 
+            <View className='flex-1 flex-col-reverse'>
+                {/* Trending Movies Carousel */}
+                { trending.length>0 && <TrendingMovies data={trending} key={0} /> }
+            </View>
+                
+                {/* top rated movies row */}
+            { topRated.length>0 && <MovieList title="Top Rated" data={topRated} hideSeeAll={false}  key={2}/> }
 
-            {/* Trending Movies Carousel */}
-            { trending.length>0 && <TrendingMovies data={trending} /> }
+            {/* upcoming movies row */}
+            { upcoming.length>0 && <MovieList title="Upcoming" data={upcoming} hideSeeAll={false}  key={1}/> }
 
           </ScrollView>
         )
-      }
-      
+      }    
   </View>
       
 

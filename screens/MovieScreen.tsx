@@ -6,23 +6,39 @@ import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
 import { LinearGradient } from 'expo-linear-gradient';
 import { styles, theme } from '../theme';
-import Cast from '../components/Cast';
-import MovieList from '../components/MovieList';
+// import Cast from '../components/Cast';
+import MovieList from '../components/movieList';
 import Loading from '../components/loading';
 import { fallbackMoviePoster, fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies, image500 } from '../api/moviedb';
 
 const { width, height } = Dimensions.get('window');
-const ios = Platform.OS === ios;
+const ios = Platform.OS === "ios";
 const topMargin = ios ? '' : 'mt-3';
 
+interface Genre {name?:string}
+  
+  type Movie = {
+    id?:string
+    poster_path?:string,
+    title?:string,
+    runtime?:string,
+    status?:string,
+    release_date?:string,
+    genres?:Genre[],
+    overview?:string
+  }
+
 export default function MovieScreen() {
-  const { params: item } = useRoute();
+
+  let initMovie:Movie = {}
+ 
+  const { params: item }:any = useRoute();
   const navigation = useNavigation();
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [cast, setCast] = React.useState([1, 2, 3, 4, 5]);
   const [similarMovies, setSimilarMovies] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [movie, setMovie] = React.useState({});
+  const [movie, setMovie] = React.useState(initMovie);
   const movieName = 'Kingdom II: Far and Away';
 
   React.useEffect(() => {
@@ -141,11 +157,11 @@ export default function MovieScreen() {
       </View>
 
       {/* cast */}
-      {
+      {/* {
         cast.length && !loading ? (
           <Cast navigation={navigation} cast={cast} />
         ) : null       
-      }
+      } */}
      
       {/* similar movies go here */}
       {
