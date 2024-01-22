@@ -58,7 +58,7 @@ export default function HomeScreen() {
                 <Text  className='text-[#eab308]'>M</Text>ovies
             </Text>
             <TouchableOpacity >
-            <MagnifyingGlassIcon size="30" strokeWidth={2} color="white" />
+            <MagnifyingGlassIcon size="30" strokeWidth={2} color="white" onPress={()=> navigation.navigate('Search')}/>
             </TouchableOpacity>
         </View>
         
