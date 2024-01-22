@@ -33,7 +33,7 @@ export default function MovieList({title, data, hideSeeAll}) {
           data.map((item, idx) => {
             return (
               <TouchableWithoutFeedback
-                key={item}
+                key={idx}
                 onPress={() => {
                   navigation.navigate('Movie', item);
                 }}

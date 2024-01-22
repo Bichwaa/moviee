@@ -6,7 +6,7 @@ import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
 import { LinearGradient } from 'expo-linear-gradient';
 import { styles, theme } from '../theme';
-// import Cast from '../components/Cast';
+import Cast from '../components/cast';
 import MovieList from '../components/movieList';
 import Loading from '../components/loading';
 import { fallbackMoviePoster, fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies, image500 } from '../api/moviedb';
@@ -104,8 +104,6 @@ export default function MovieScreen() {
                 width,
                 height: height * .4
               }}
-              start={{x: .5, y: 0}}
-              end={{x: .5, y: 1}}
               className="absolute bottom-0"
             />
           </View>           
@@ -142,7 +140,7 @@ export default function MovieScreen() {
             let showDot = idx + 1 !== movie.genres.length;
 
             return (
-              <Text className="text-neutral-400 font-semibold text-base text-center">
+              <Text key={idx} className="text-neutral-400 font-semibold text-base text-center">
                 {genre?.name}{showDot ? '•' : ''}
               </Text>            
             )
@@ -157,11 +155,11 @@ export default function MovieScreen() {
       </View>
 
       {/* cast */}
-      {/* {
+      {
         cast.length && !loading ? (
           <Cast navigation={navigation} cast={cast} />
         ) : null       
-      } */}
+      }
      
       {/* similar movies go here */}
       {

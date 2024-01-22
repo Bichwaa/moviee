@@ -12,8 +12,8 @@ export default function TrendingMovies ({data}) {
     const navigation = useNavigation();
     
     const handleClick = (item) => {
-      console.log("trending movies handerrrrrr=====>")
-      navigation.navigate("Movie", item); // @ts-ignore
+      console.log("trending movies handlerrrrrr=====>")
+      navigation.navigate("Movie", item);
     };
   
     return (
