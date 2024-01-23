@@ -66,21 +66,23 @@ const MovieCard = ({item, handleClick})=>{
     return (
         <TouchableWithoutFeedback key={item} onPress={() => handleClick(item)} >
 
-            <CustomItem
+            {/* <CustomItem
                 key={item.id}
                 source = {{uri: image500(item.poster_path)}}
                 animationValue={sv}
-              />
+              /> */}
 
 
-            {/* <Image 
+            <View className='items-center'>
+            <Image 
                 source = {{uri: image500(item.poster_path)}}
                 style={{
                     width: width * .6,
                     height: height *.5,
                 }}
                 className="rounded-2xl" 
-            /> */}
+            />
+            </View>
         </TouchableWithoutFeedback>
     )
 }
